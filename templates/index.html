@@ -34,10 +34,17 @@
     <h2>Clientes Cadastrados</h2>
     <ul>
         {% for cliente in clientes %}
-            <li>ID: {{ cliente[0] }} - {{ cliente[1] }} - CPF: {{ cliente[2] }}</li>
+            <li>
+                ID: {{ cliente[0] }} - {{ cliente[1] }} - CPF: {{ cliente[2] }}
+
+                <form action="/delete_cliente/{{ cliente[0] }}" method="post" style="display:inline;">
+                    <button type="submit" onclick="return confirm('Confirma exclusão do cliente?')">Excluir</button>
+                </form>
+            </li>
         {% endfor %}
     </ul>
 </section>
+
 
 <section>
     <h2>Contratos Registrados</h2>
