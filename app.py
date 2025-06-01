@@ -90,6 +90,26 @@ def add_contrato():
     conn.close()
     return redirect('/')
 
+@app.route('/delete_cliente/<int:idCliente>', methods=['POST'])
+def delete_cliente(idCliente):
+    conn = connect_db()
+    c = conn.cursor()
+    try:
+        # Deleta contratos relacionados ao cliente
+        c.execute('DELETE FROM contratos WHERE idCliente = %s', (idCliente,))
+        
+        # Deleta o cliente
+        c.execute('DELETE FROM clientes WHERE idCliente = %s', (idCliente,))
+        
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        return f"Erro ao excluir cliente: {str(e)}", 500
+    finally:
+        conn.close()
+
+    return redirect('/')
+
 
 if __name__ == '__main__':
     init_db()
