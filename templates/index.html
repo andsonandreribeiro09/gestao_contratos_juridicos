@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<section>
+    <h2>Cadastrar Cliente</h2>
+    <form method="POST" action="/add_cliente">
+        <input type="text" name="nome" placeholder="Nome" required>
+        <input type="text" name="cpf" placeholder="CPF" required>
+        <button type="submit">Salvar Cliente</button>
+    </form>
+</section>
+
+<section>
+    <h2>Cadastrar Contrato</h2>
+    <form method="POST" action="/add_contrato">
+        <input type="text" name="numero" placeholder="Número do Contrato" required>
+        <input type="number" name="valor" step="0.01" placeholder="Valor" required>
+        <input type="date" name="data" required>
+        <input type="number" name="idCliente" placeholder="ID do Cliente" required>
+        <button type="submit">Salvar Contrato</button>
+    </form>
+</section>
+
+<section>
+    <h2>Filtrar Contratos por Valor</h2>
+    <form method="GET" action="/">
+        <input type="number" name="valor_min" step="0.01" placeholder="Valor mínimo">
+        <input type="number" name="valor_max" step="0.01" placeholder="Valor máximo">
+        <button type="submit">Filtrar</button>
+    </form>
+</section>
+
+<section>
+    <h2>Clientes Cadastrados</h2>
+    <ul>
+        {% for cliente in clientes %}
+            <li>ID: {{ cliente[0] }} - {{ cliente[1] }} - CPF: {{ cliente[2] }}</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <h2>Contratos Registrados</h2>
+    <ul>
+        {% for contrato in contratos %}
+            <li>ID: {{ contrato[0] }} - Nº: {{ contrato[1] }} - Valor: R$ {{ contrato[2] }} - Data: {{ contrato[3] }} - Cliente ID: {{ contrato[4] }}</li>
+        {% endfor %}
+    </ul>
+</section>
+
+{% endblock %}
